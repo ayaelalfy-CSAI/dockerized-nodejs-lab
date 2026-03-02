@@ -1,0 +1,48 @@
+
+services:
+  frontend:
+    image: nginx:latest 
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    networks:
+      - frontend_network
+      
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - DB_URL=postgresql://postgres:postgres@db:5432/myappdb
+    networks:
+      - backend_network
+      - frontend_network
+
+      
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=myappdb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - backend_network
+
+
+volumes:
+  db_data:
+
+networks:
+  backend_network:
+    driver: bridge
+  frontend_network:
+    driver: bridge    
+
+
+
+      
