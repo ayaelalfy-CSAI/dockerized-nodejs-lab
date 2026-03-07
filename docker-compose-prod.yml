@@ -1,0 +1,67 @@
+
+services:
+  frontend:
+    image: nginx:latest 
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    networks:
+      - frontend_network
+    depends_on:
+      - backend
+      
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    # environment:
+    #   - PORT=3001
+    #   - DB_URL=postgresql://postgres:postgres@db:5432/myappdb
+    env_file:
+      - ./backend/.env
+    networks:
+      - backend_network
+      - frontend_network
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+
+     
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=myappdb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - backend_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+
+volumes:
+  db_data:
+
+networks:
+  backend_network:
+    driver: bridge
+  frontend_network:
+    driver: bridge    
+
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+
+
+      

@@ -15,9 +15,11 @@ services:
     build: ./backend
     ports:
       - "3001:3001"
-    environment:
-      - PORT=3001
-      - DB_URL=postgresql://postgres:postgres@db:5432/myappdb
+    # environment:
+    #   - PORT=3001
+    #   - DB_URL=postgresql://postgres:postgres@db:5432/myappdb
+    env_file:
+      - ./backend/.env
     networks:
       - backend_network
       - frontend_network
@@ -56,7 +58,6 @@ networks:
     driver: bridge
   frontend_network:
     driver: bridge    
-
 
 
       
