@@ -78,7 +78,7 @@ pipeline {
 
                     docker compose -f ${COMPOSE_FILE} ps
 
-                    docker ps | grep taskflow
+                    docker compose -f ${COMPOSE_FILE} ps | grep "Up" || exit 1
 
                 '''
 
