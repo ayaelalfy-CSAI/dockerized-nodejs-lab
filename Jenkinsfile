@@ -28,7 +28,7 @@ pipeline {
 
             steps {
 
-                echo '🧹 Cleaning up old containers...'
+                echo 'Cleaning up old containers...'
 
                 sh '''
 
@@ -48,7 +48,7 @@ pipeline {
 
                 echo ' Building Docker images...'
 
-                sh 'docker-compose -f ${COMPOSE_FILE} build'
+                sh 'docker compose -f ${COMPOSE_FILE} build'
 
             }
 
@@ -60,7 +60,7 @@ pipeline {
 
                 echo ' Starting containers...'
 
-                sh 'docker-compose -f ${COMPOSE_FILE} up -d'
+                sh 'docker compose -f ${COMPOSE_FILE} up -d'
 
             }
 
@@ -76,7 +76,7 @@ pipeline {
 
                     sleep 10
 
-                    docker-compose -f ${COMPOSE_FILE} ps
+                    docker compose -f ${COMPOSE_FILE} ps
 
                     docker ps | grep taskflow
 
