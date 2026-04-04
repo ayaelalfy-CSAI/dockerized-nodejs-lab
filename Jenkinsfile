@@ -4,7 +4,7 @@ pipeline {
  
     environment {
 
-        COMPOSE_FILE = 'docker-compose.yml'
+        COMPOSE_FILE = 'docker-compose-prod.yml'
 
         APP_NAME     = 'taskflow'
 
@@ -32,7 +32,7 @@ pipeline {
 
                 sh '''
 
-                    docker-compose -f ${COMPOSE_FILE} down --remove-orphans 2>/dev/null || true
+                    docker compose -f ${COMPOSE_FILE} down --remove-orphans 2>/dev/null || true
 
                     docker rm -f taskflow-frontend taskflow-api taskflow-mysql 2>/dev/null || true
 
@@ -106,7 +106,7 @@ pipeline {
 
             echo ' Stopping containers...'
 
-            sh 'docker-compose -f ${COMPOSE_FILE} down 2>/dev/null || true'
+            sh 'docker compose -f ${COMPOSE_FILE} down 2>/dev/null || true'
 
         }
 
