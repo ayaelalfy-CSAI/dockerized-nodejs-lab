@@ -1,0 +1,18 @@
+FROM jenkins/ssh-agent
+
+USER root
+
+RUN apt update && \
+    apt install -y docker.io curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install docker compose v2
+RUN mkdir -p /usr/libexec/docker/cli-plugins && \
+    curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 \
+    -o /usr/libexec/docker/cli-plugins/docker-compose && \
+    chmod +x /usr/libexec/docker/cli-plugins/docker-compose
+
+# Add jenkins user to docker group
+RUN usermod -aG docker jenkins
+
+USER jenkins
