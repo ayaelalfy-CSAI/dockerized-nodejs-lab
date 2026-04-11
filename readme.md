@@ -26,3 +26,21 @@ Environment Variables
    POSTGRES_USER 	    app 	  Database user
    POSTGRES_PASSWORD 	secret 	  Database password
    POSTGRES_DB 	        myapp 	  Database name
+
+
+
+
+----------------------------------
+
+docker exec -u root agent3 chmod 666 /var/run/docker.sock
+
+
+
+
+
+
+
+
+
+
+
