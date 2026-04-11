@@ -32,7 +32,10 @@ Environment Variables
 
 ----------------------------------
 
-docker exec -u root agent3 chmod 666 /var/run/docker.sock
+the Dockerfile.agent_ssh install the docker cli only and when i run the container this container will use thr docker daemon from the host
+
+docker exec -u root agent3 chmod 666 /var/run/docker.sock 
+  (to solve the problem of permission denied )
 
 
 
