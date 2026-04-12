@@ -6,7 +6,7 @@ pipeline {
 
         COMPOSE_FILE = 'docker-compose-prod.yml'
 
-        APP_NAME     = 'taskflow'
+        APP_NAME     = 'nodejs-lab'
 
     }
  
@@ -34,7 +34,7 @@ pipeline {
 
                     docker compose -f ${COMPOSE_FILE} down --remove-orphans 2>/dev/null || true
 
-                    docker rm -f taskflow-frontend taskflow-api taskflow-mysql 2>/dev/null || true
+                    docker rm -f dockerized-nodejs-lab-frontend-1 dockerized-nodejs-lab-backend-1 dockerized-nodejs-lab-db-1 2>/dev/null || true
 
                 '''
 
