@@ -39,7 +39,7 @@ docker exec -u root agent3 chmod 666 /var/run/docker.sock
 
 
 ----------------------------------
-add webhook to the jenkins
+add webhook to the jenkins and use ngrok
 
 
 
