@@ -93,6 +93,7 @@ pipeline {
         success {
 
             echo " Build #${BUILD_NUMBER} succeeded! Application is running."
+            slackSend color: "good", message: "Build #${BUILD_NUMBER} succeeded! Application is running."
 
         }
 
