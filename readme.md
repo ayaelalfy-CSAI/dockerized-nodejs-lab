@@ -46,6 +46,3 @@ add slack notification (create a channel jenkins)
 
 
 
-
-
-
